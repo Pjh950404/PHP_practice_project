@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <head>
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="stylesheet/style.css">
 
-  <title> ㅁㅁㅁ이민영의 포트폴리오 페이지 </title>
+  <title> 이민영의 포트폴리오 페이지 </title>
   <img src=/imgfolder/index.jpeg alt="나의 페이지">
 </head>
 
