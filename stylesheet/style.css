@@ -74,4 +74,8 @@ li.dropdown {
 .tooltip:hover .tooltiptext{
   visibility: visible;
 }
+
+.container{
+  margin-left: 150px;
+}
 </style>
