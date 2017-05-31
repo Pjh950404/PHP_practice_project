@@ -35,7 +35,6 @@
  <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>m_yg@naver.com</p>
  <p><i class="fa fa-github fa-fw w3-margin-right w3-large w3-text-teal"></i>https://github.com/GAESALGU</p>
 
-
         <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>학력사항</h2>
         <div class="w3-container">
           <h5 class="w3-opacity"><b>동양미래대학</b></h5>

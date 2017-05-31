@@ -10,9 +10,6 @@
     <!-- Bootstrap -->
     <link href="stylesheet/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- font awesome -->
-    <link rel="stylesheet" href="stylesheet/css/font-awesome.min.css" media="screen" title="no title" charset="utf-8">
-    <!-- Custom style -->
-    <link rel="stylesheet" href="css/style.css" media="screen" title="no title" charset="utf-8">
 
     <!-- W3 CSS -->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -105,7 +102,7 @@
             </div>
 
             <div class="form-group text-center">
-              <button type="submit" class="btn btn-info">회원가입 하기 <i class="fa fa-check spaceLeft"></i></button>
+              <button type="submit" class="btn btn-info" onclick="RegisterUser()">회원가입 하기 <i class="fa fa-check spaceLeft"></i></button>
               <button type="submit" class="btn btn-warning">가입취소 <i class="fa fa-times spaceLeft"></i></button>
             </div>
         </div>
@@ -115,6 +112,38 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="stylesheet/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+      function RegisterUser(){
+        if(document.getElementsById("password").value == document.getElementsById("password2").value){
+          var request = new XMLHttpRequest();
+          var params = "?id=" + document.getElementsById("id").value +
+          "&password=" + document.getElementsById("password").value +
+          "&name=" + document.getElementsById("name").value +
+          "&phone=" + document.getElementsById("phone").value +
+          "&email=" +document.getElementsById("email").value;
+
+          request.open("GET", "config.php" + params, true);
+          request.onreadystatechange = function(){
+            if(request.readyState == 4){
+              if(request.status == 200 || request.status == 0) {
+                var str = request.responseText;
+                if(str == "1"){
+                  alert("Success");
+                }
+                else {
+                  alert("Fail");
+                }
+              }
+            }
+          }
+          requet.send(null);
+        }
+        else{
+          alert("Password not same");
+        }
+      }
+    </script>
+
   </body>
 </html>
