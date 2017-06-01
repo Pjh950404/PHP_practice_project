@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <title>leemy.me - 포트폴리오 페이지</title>
+  <meta charset="utf-8">
   <link rel="stylesheet" href=/stylesheet/style.css>
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
@@ -8,19 +10,9 @@
 </head>
 
 <body>
-  <!-- 상단 네비게이션 부분 -->
-  <div class="w3-top">
-    <div class="w3-bar w3-white w3-wide w3-padding w3-card-2">
-      <a href="/index.php" class="w3-bar-item w3-button"><b>Lee</b> PortfolioWebSite</a>
-
-      <div class="w3-right w3-hide-small">
-        <a href="/portfoliopage.php" class="w3-bar-item w3-button">이력사항</a>
-        <a href="#about" class="w3-bar-item w3-button">게시판</a>
-        <a href="/login.php" class="w3-bar-item w3-button" onclick="document.getElementById('id01')">로그인</a>
-
-      </div>
-    </div>
-  </div>
+  <?php
+    include ("header.php");
+  ?>
 
   <div class="w3-twothird w3-panel w3-padding-48">
       <div class="w3-container w3-card-2 w3-white">
