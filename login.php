@@ -1,15 +1,32 @@
-<? php
-include("config.php");
-session_start();
+<?php
+require_once 'dbconnect.php';
 
-if($_POST["uid"] !=""){
-  $myusername=$_POST["uid"];
-  $mypassword=$_POST["upwd"];
 
-  $sql="SELECT * FROM "
+
+if (isset($_POST['btn-login'])) {
+
+ $email = strip_tags($_POST['email']);
+ $password = strip_tags($_POST['password']);
+
+ $email = $DBcon->real_escape_string($email);
+ $password = $DBcon->real_escape_string($password);
+
+ $query = $DBcon->query("SELECT user_id, email, password FROM tbl_users WHERE email='$email'");
+ $row=$query->fetch_array();
+
+ $count = $query->num_rows; // if email/password are correct returns must be 1 row
+
+ if (password_verify($password, $row['password']) && $count==1) {
+  $_SESSION['userSession'] = $row['user_id'];
+  header("Location: index.php");
+ } else {
+  $msg = "<div class='alert alert-danger'>
+     <span class='glyphicon glyphicon-info-sign'></span> &nbsp; Invalid Username or Password !
+    </div>";
+ }
+ $DBcon->close();
 }
-
- ?>
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -35,49 +52,45 @@ if($_POST["uid"] !=""){
     <![endif]-->
   </head>
   <body>
-    <!-- 상단 네비게이션 부분 -->
-    <div class="w3-top">
-      <div class="w3-bar w3-white w3-wide w3-padding w3-card-2">
-        <a href="/index.php" class="w3-bar-item w3-button"><b>Lee</b> PortfolioWebSite</a>
+      <?php
+        include ("header.php");
+      ?>
 
-        <div class="w3-right w3-hide-small">
-          <a href="/portfoliopage.php" class="w3-bar-item w3-button">이력사항</a>
-          <a href="#about" class="w3-bar-item w3-button">게시판</a>
-          <a href="/login.php" class="w3-bar-item w3-button">로그인</a>
-        </div>
-      </div>
-    </div>
+  <div class="signin-form">
 
-    <div class="container">
-      <div class="row">
-        <div class="page-header">
-          <h2>Leemy.me</h2>
-        </div>
-        <div class="col-md-3">
-          <div class="login-box well">
-        <form accept-charset="UTF-8" role="form" method="post" action="login_action.php">
-            <legend>로그인</legend>
-            <div class="form-group">
-                <label for="username-email">이메일 or 아이디</label>
-                <input name="user_id" value='' id="username-email" placeholder="E-mail or Username" type="text" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label for="password">비밀번호</label>
-                <input name="password" id="password" value='' placeholder="Password" type="password" class="form-control" />
-            </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-default btn-login-submit btn-block m-t-md" value="Login" />
-            </div>
-            <span class='text-center'><a href="#" class="text-sm">비밀번호 찾기</a></span>
-            <hr />
-            <div class="form-group">
-                <a href="" class="btn btn-default btn-block m-t-md"> 회원가입</a>
-            </div>
-        </form>
+   <div class="container">
+
+
+         <form class="form-signin" method="post" id="login-form">
+
+          <h2 class="form-signin-heading">로그인</h2><hr />
+
+          <?php
+    if(isset($msg)){
+     echo $msg;
+    }
+    ?>
+
+          <div class="form-group">
+          <input type="email" class="form-control" placeholder="Email address" name="email" required />
+          <span id="check-e"></span>
           </div>
-        </div>
+
+          <div class="form-group">
+          <input type="password" class="form-control" placeholder="Password" name="password" required />
+          </div>
+
+        <hr />
+
+          <div class="form-group">
+              <button type="submit" class="btn btn-default" name="btn-login" id="btn-login">
+        <span class="glyphicon glyphicon-log-in"></span> &nbsp; 로그인
+     </button>
+              <a href="register.php" class="btn btn-default" style="float:right;">회원가입</a>
+          </div>
+        </form>
       </div>
-    </div>
+  </div>
 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

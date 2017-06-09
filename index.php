@@ -1,6 +1,14 @@
+<?php
+include_once 'dbconnect.php';
+
+$query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=".$_SESSION['userSession']);
+$userRow=$query->fetch_array();
+$DBcon->close();
+
+?>
 <?xml version="1.0"?><!DOCTYPE html>
 <head>
-  <title>  leemy.me - PortfolioWebSite</title>
+  <title>  leemy.me - <?php echo $userRow['email']; ?>님 반갑습니다. </title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, inital-scale=1">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -69,6 +77,10 @@
       </div>
     </div>
   </div>
+  <!-- footer -->
+  <?php
+    include ("footer.php");
+  ?>
 
 </body>
 </html>

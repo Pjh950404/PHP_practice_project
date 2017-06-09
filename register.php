@@ -1,49 +1,49 @@
 <?php
-  session_start();
-
-  if(isset($_SESSION['id'])){
+session_start();
+if (isset($_SESSION['userSession'])!="") {
     header("Location: index.php");
-  }
+}
+require_once 'dbconnect.php';
 
-  require_once 'dbconnect.php';
-
-  if(isset($_POST['signup'])){
-    $uname = strip_tags($_POST['name']);
-    $email = strip_tags($_POST['email']]);
+if (isset($_POST['btn-signup'])) {
+    $uname = strip_tags($_POST['username']);
+    $email = strip_tags($_POST['email']);
     $upass = strip_tags($_POST['password']);
 
-    $uname = $conn->real_escape_string($uname);
-    $email = $conn->real_escape_string($email);
-    $upass = $conn->real_escape_string($upass);
+    $uname = $DBcon->real_escape_string($uname);
+    $email = $DBcon->real_escape_string($email);
+    $upass = $DBcon->real_escape_string($upass);
 
-    $hashed_password = password_hash($upass, PASSWORD_DEFAULT);
+    $hashed_password = password_hash($upass, PASSWORD_DEFAULT); // this function works only in PHP 5.5 or latest version
 
-    $check_email=$conn->query("SELECT email FROM tbl_users WHERE email='$email'");
+    $check_email = $DBcon->query("SELECT email FROM tbl_users WHERE email='$email'");
     $count=$check_email->num_rows;
 
-     if ($count==0) {
-       $query = "INSERT INTO tbl_users(username, email, password) VALUES('$uname, $email, $hashed_password')"
+    if ($count==0) {
+        $query = "INSERT INTO tbl_users(username,email,password) VALUES('$uname','$email','$hashed_password')";
 
-       if($conn->query($query)){
-         $msg = "<div class='alert alert-success'>
-         <span class='glyphicon hlyphicon-info-sign'></span> successfully registered !
-         </div>";
-       }else{
-         $msg = "<div class='alert alert-danger'>
-   <span class='glyphicon glyphicon-info-sign'></span>  error while registering !
-  </div>";
-       }
-  }else{
-    $msg = "<div class='alert alert-danger'>
-   <span class='glyphicon glyphicon-info-sign'></span> sorry email already taken !
-  </div>";
-  }
+        if ($DBcon->query($query)) {
+            $msg = "<div class='alert alert-success'>
+      <span class='glyphicon glyphicon-info-sign'></span> &nbsp; successfully registered !
+     </div>";
+        } else {
+            $msg = "<div class='alert alert-danger'>
+      <span class='glyphicon glyphicon-info-sign'></span> &nbsp; error while registering !
+     </div>";
+        }
+    } else {
+        $msg = "<div class='alert alert-danger'>
+     <span class='glyphicon glyphicon-info-sign'></span> &nbsp; sorry email already taken !
+    </div>";
+    }
 
-  $conn->close();
- ?>
-<!DOCTYPE html>
+    $DBcon->close();
+}
+?>
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
@@ -67,50 +67,48 @@
   </head>
   <body>
     <?php
-      include ("header.php");
+      include("header.php");
     ?>
-      <article class="container">
-        <div class="page-header">
-          <h1>회원가입 <small>Sign up</small></h1>
-        </div>
-        <div class="col-md-6 col-md-offset-3">
+
+    <div class="signin-form">
+     <div class="container">
+           <form class="form-signin" method="post" id="register-form">
+            <h2 class="form-signin-heading">Sign Up</h2><hr />
+            <?php
+      if (isset($msg)) {
+          echo $msg;
+      }
+      ?>
             <div class="form-group">
-              <label for="InputId">아이디</label>
-              <input type="text" class="form-control" id="id" placeholder="아이디">
+            <label for="username">이름</label>
+            <input type="text" class="form-control" placeholder="이름을 입력하세요" name="username" required  />
             </div>
 
             <div class="form-group">
-              <label for="InputPassword1">비밀번호</label>
-              <input type="password" class="form-control" id="password" placeholder="비밀번호">
+            <label for="email">이메일</label>
+            <input type="email" class="form-control" placeholder="이메일을 입력하세요" name="email" required  />
+            <span id="check-e"></span>
             </div>
 
             <div class="form-group">
-              <label for="InputPassword2">비밀번호 확인</label>
-              <input type="password" class="form-control" id="password2" placeholder="비밀번호 확인">
-              <p class="help-block">비밀번호 확인을 위해 다시 한번 입력 해 주세요</p>
-            </div>
-            <div class="form-group">
-              <label for="username">이름</label>
-              <input type="text" class="form-control" id="name" placeholder="이름을 입력해 주세요">
+            <label for="password">비밀번호</label>
+            <input type="password" class="form-control" placeholder="비밀번호를 입력하세요" name="password" required  />
             </div>
 
-			<div class="form-group">
-              <label for="InputEmail">전화 번호</label>
-              <input type="text" class="form-control" id="phone" placeholder="전화 번호를 입력해 주세요">
-            </div>
+          <hr />
 
             <div class="form-group">
-              <label for="InputEmail">이메일 주소</label>
-              <input type="email" class="form-control" id="email" placeholder="이메일 주소를 입력해 주세요">
+                <button type="submit" class="btn btn-default" name="btn-signup">
+          <span class="glyphicon glyphicon-log-in"></span> &nbsp; 회원가입
+       </button>
+                <a href="index.php" class="btn btn-default" style="float:right;">홈화면으로</a>
             </div>
 
-            <div class="form-group text-center">
-              <button type="submit" class="btn btn-info" name="signup">회원가입 하기 <i class="fa fa-check spaceLeft"></i></button>
-              <button type="submit" class="btn btn-warning">가입취소 <i class="fa fa-times spaceLeft"></i></button>
-            </div>
+          </form>
+
         </div>
 
-      </article>
+    </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
