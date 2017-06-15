@@ -19,9 +19,10 @@
         <div class="w3-display-container ">
   <img src="/images/my.jpg" style="width:20%" alt="Avatar">
   <div class="w3-display-bottomleft w3-container w3-text-black">
-    <h2>Lee Min Young</h2>
+
   </div>
 </div>
+<p><i class="fa fa-address-book-o fa-fw w3-margin-right w3-large w3-text-teal"></i>이민영</p>
 <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>개발자 지망생</p>
  <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>경기도 안산시</p>
  <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>m_yg@naver.com</p>

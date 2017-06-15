@@ -1,4 +1,9 @@
+<?php
+    session_start();
+    include_once 'dbconnect.php';
+    $query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=".$_SESSION['userSession']);
 
+ ?>
 <!DOCTYPE html>
 <head>
   <title>헤더부분</title>
@@ -20,8 +25,18 @@
       <a href="#about" class="w3-bar-item w3-button">게시판</a>
     </div>
     <div class="w3-right w3-hide-small">
-      <a href="login.php" class="w3-bar-item w3-button">로그인</a>
-      <a href="register.php" class="w3-bar-item w3-button">회원가입</a>
+        <?php
+          if(!isset($_SESSION['userSession'])){
+
+              echo'<a href="login.php" class="w3-bar-item w3-button">로그인</a>';
+              echo'<a href="register.php" class="w3-bar-item w3-button">회원가입</a>';
+          }
+          else{
+              echo $userRow['username'];
+              echo'<a href="logout.php?logout" class="w3-bar-item w3-button">로그아웃</a>';
+          }
+         ?>
+
       <!-- 요기까지 메뉴만 -->
 
       <!--모달 로그인 창-->
@@ -35,7 +50,6 @@
               <input class="w3-input w3-border" type="password" placeholder="비밀번호를 입력해주세요." name="password" required>
               <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">로그인</button>
               <input class="w3-check w3-margin-top" type="checkbox" checked="checked"> 로그인 정보 기억
-              <a href="register.php" type="button" class="w3-right w3-button w3-button">회원가입</a>
             </div>
           </form>
 

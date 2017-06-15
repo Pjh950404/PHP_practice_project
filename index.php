@@ -1,9 +1,4 @@
 <?php
-include_once 'dbconnect.php';
-
-$query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=".$_SESSION['userSession']);
-$userRow=$query->fetch_array();
-$DBcon->close();
 
 ?>
 <?xml version="1.0"?><!DOCTYPE html>

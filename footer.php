@@ -9,7 +9,7 @@
 </head>
 <body>
   <footer class="w3-center w3-light-grey w3-padding-32">
-    <a href="#" class="w3-button w3-black w3-margin"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+
 <div class="w3-xlarge w3-section">
   <p>Links</p>
   <i class="fa fa-github-square fa-2x w3-hover-opacity"></i>
@@ -19,5 +19,6 @@
        class="w3-hover-text-green">E-mail : m_yg@naver.com<br> github : https://github.com/GAESALGU</a>
      </p>
      <p> Copyright (c) 2017 Copyright Holder All Rights Reserved.</p>
+     <a href="#" class="w3-button w3-black w3-margin"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
 </body>
 </html>
