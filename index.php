@@ -1,9 +1,20 @@
 <?php
-
+    session_start();
+    include_once 'dbconnect.php';
 ?>
 <?xml version="1.0"?><!DOCTYPE html>
 <head>
-  <title>  leemy.me - <?php echo $userRow['email']; ?>님 반갑습니다. </title>
+  <title>  leemy.me -
+    <?php
+    if(!isset($_SESSION['userSession'])){
+        echo "손";
+    }
+
+    else{
+        echo $_SESSION['userSession_email'];
+    }
+
+    ?>님 반갑습니다. </title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, inital-scale=1">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">

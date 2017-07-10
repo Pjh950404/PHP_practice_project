@@ -1,12 +1,9 @@
 <?php
-    session_start();
-    include_once 'dbconnect.php';
-    $query = $DBcon->query("SELECT * FROM tbl_users WHERE user_id=".$_SESSION['userSession']);
 
+    include_once 'dbconnect.php';
  ?>
 <!DOCTYPE html>
 <head>
-  <title>헤더부분</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, inital-scale=1">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -15,6 +12,7 @@
 </head>
 
 <body>
+    <br>
 <!-- 상단 네비게이션 부분 -->
 <div class="w3-top">
   <div class="w3-bar w3-white w3-wide w3-padding w3-card-2">
@@ -32,11 +30,12 @@
               echo'<a href="register.php" class="w3-bar-item w3-button">회원가입</a>';
           }
           else{
-              echo $userRow['username'];
+              //echo $userRow[''];
+              echo'<a href="memberRead.php" class="w3-bar-item w3-button">회원정보보기</a>';
+              echo'<a href="memberinfo.php" class="w3-bar-item w3-button">회원정보수정</a>';
               echo'<a href="logout.php?logout" class="w3-bar-item w3-button">로그아웃</a>';
           }
          ?>
-
       <!-- 요기까지 메뉴만 -->
 
       <!--모달 로그인 창-->

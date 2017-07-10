@@ -1,6 +1,5 @@
 <?php
     require_once 'dbconnect.php';
-    require_once 'dbconnect.php';
 
     if(isset($_POST['btn-signup'])) {
 
