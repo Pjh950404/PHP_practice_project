@@ -11,7 +11,7 @@
     }
 
     else{
-        echo $_SESSION['userSession_email'];
+        echo $_SESSION['userSession_name'];
     }
 
     ?>님 반갑습니다. </title>

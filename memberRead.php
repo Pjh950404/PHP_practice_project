@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Multiple Insert, Update, Delete(CRUD) using PHP & MySQLi</title>
+    <title>leemy - 회원정보 화면</title>
 <link rel="stylesheet" href="style.css" type="text/css" />
 <script src="jquery.js" type="text/javascript"></script>
 <script src="js-script.js" type="text/javascript"></script>
@@ -22,11 +22,12 @@
 <form method="post" name="frm">
 <table width="50%" align="center" border="0">
 <tr>
-<td colspan="3"><a href="register.php">add new records...</a></td>
+<!--<td colspan="3"><a href="register.php">add new records...</a></td>-->
 </tr>
 <tr>
 <th> USER ID</th>
 <th> EMAIL</th>
+<th> USER NAME</th>
 </tr>
 <?php
  $res = $DBcon->query("SELECT * FROM tbl_users");
@@ -38,9 +39,10 @@
   {
    ?>
    <tr>
-   <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['user_id']; ?>"  /></td>
+   <!--<td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['user_id']; ?>"  /></td>-->
    <td><?php echo $row['user_id']; ?></td>
    <td><?php echo $row['email']; ?></td>
+   <td><?php echo $row['username']; ?></td>
    </tr>
    <?php
   }
@@ -55,6 +57,7 @@
  }
 ?>
 
+<!--
 <?php
 if($count > 0)
 {
@@ -73,6 +76,7 @@ if($count > 0)
 }
 
 ?>
+-->
 
 </table>
 </form>

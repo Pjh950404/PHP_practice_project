@@ -1,5 +1,4 @@
 <?php
-
     include_once 'dbconnect.php';
  ?>
 <!DOCTYPE html>
@@ -32,7 +31,7 @@
           else{
               //echo $userRow[''];
               echo'<a href="memberRead.php" class="w3-bar-item w3-button">회원정보보기</a>';
-              echo'<a href="memberinfo.php" class="w3-bar-item w3-button">회원정보수정</a>';
+              echo'<a href="memberupdate.php" class="w3-bar-item w3-button">회원정보수정</a>';
               echo'<a href="logout.php?logout" class="w3-bar-item w3-button">로그아웃</a>';
           }
          ?>

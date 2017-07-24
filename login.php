@@ -15,13 +15,14 @@ if (isset($_POST['btn-login'])) {
     $email = $DBcon->real_escape_string($email);
     $password = $DBcon->real_escape_string($password);
 
-    $query = $DBcon->query("SELECT user_id, email, password FROM tbl_users WHERE email='$email'");
+    $query = $DBcon->query("SELECT user_id, username, email, password FROM tbl_users WHERE email='$email'");
     $row=$query->fetch_array();
 
     $count = $query->num_rows; // if email/password are correct returns must be 1 row
 
  if (password_verify($password, $row['password']) && $count==1) {
      $_SESSION['userSession'] = $row['user_id'];
+     $_SESSION['userSession_name'] = $row['username'];
      $_SESSION['userSession_email'] = $row['email'];
      header("Location: index.php");
  } else {
@@ -38,6 +39,7 @@ if (isset($_POST['btn-login'])) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/stylesheet/style.css">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>leemy - 로그인 화면</title>
 
@@ -60,6 +62,7 @@ if (isset($_POST['btn-login'])) {
       <?php
         include("header.php");
       ?>
+      <br><br>
   <div class="signin-form">
    <div class="container">
          <form class="form-signin" method="post" id="login-form">
@@ -94,5 +97,13 @@ if (isset($_POST['btn-login'])) {
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="stylesheet/bootstrap/js/bootstrap.min.js"></script>
+  <script>
+    function loginToastFunction();
+    {
+        var x = document.getElmentById("snackbar")
+        x.className = "show";
+        setTimeout(function(){x.className = x.className.replace("show", "");}, 3000);
+    }
+  </script>
   </body>
   </html>
