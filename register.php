@@ -22,8 +22,10 @@
 
       if ($DBcon->query($query)) {
        $msg = "<div class='alert alert-success'>
-          <span class='glyphicon glyphicon-info-sign'></span> &nbsp; 회원가입이 성공적으로 되었습니다.
+          <span class='glyphicon glyphicon-info-sign'></span> &nbsp; 회원가입이 성공적으로 되었습니다. 잠시후 홈화면으로 이동됩니다.
          </div>";
+
+         header( "refresh:5; url=index.php" );
       }else {
        $msg = "<div class='alert alert-danger'>
           <span class='glyphicon glyphicon-info-sign'></span> &nbsp; 회원가입중 오류가 발생하였습니다.

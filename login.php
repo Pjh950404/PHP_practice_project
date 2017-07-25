@@ -27,7 +27,7 @@ if (isset($_POST['btn-login'])) {
      header("Location: index.php");
  } else {
      $msg = "<div class='alert alert-danger'>
-     <span class='glyphicon glyphicon-info-sign'></span> &nbsp; Invalid Username or Password !
+     <span class='glyphicon glyphicon-info-sign'></span> &nbsp; 이메일 또는 비밀번호가 틀립니다.
     </div>";
  }
     $DBcon->close();
@@ -98,7 +98,7 @@ if (isset($_POST['btn-login'])) {
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="stylesheet/bootstrap/js/bootstrap.min.js"></script>
   <script>
-    function loginToastFunction();
+    function loginToastFunction()
     {
         var x = document.getElmentById("snackbar")
         x.className = "show";

@@ -2,7 +2,7 @@
     session_start();
     require_once 'dbconnect.php';
     $Message = '로그인을 다시 해주시기바랍니다.';
-
+    $alert_script;
 
     if (isset($_SESSION['userSession'])=="") {
         echo "<script> alert('$Message'); </script>";
@@ -36,14 +36,41 @@
      }
     }
 
-    if(isset($_POST['btn-remove'])){
+    if(isset($_POST['btn-remove']))
+    {
         $removeSessionId = $_SESSION['userSession'];
-        $query = "DELETE FROM tbl_users WHERE user_id='$removeSessionId'";
-        mysqli_query($DBcon, $query);
 
-        $DBcon->close();
+        if($_POST['confirm'] !== 1){
+            $alert_script = "<script> alert(\'정말 삭제하시겠습니까?\')</script>";
+            $error = true;
+        }
+        else{
+            $error = false;
+        }
+        /*
+        if(isset($_SESSION['userSession']))
+        {
+
+            $query = "DELETE FROM tbl_users WHERE user_id='$removeSessionId'";
+            mysqli_query($DBcon, $query);
+            $DBcon->close();
+
+            session_unset();
+            unset($_SESSION['userSession']);
+
+            $msg = "<div class='alert alert-success'>
+               <span class='glyphicon glyphicon-info-sign'></span> &nbsp; 삭제가 성공적으로 되었습니다.
+              </div>";
+        }
+        else{
+            $msg = "<div class='alert alert-danger'>
+               <span class='glyphicon glyphicon-info-sign'></span> &nbsp; 잘못된 접근입니다.
+              </div>";
+        }
+        */
         //header("Location: index.php");
     }
+
     ?>
 <!DOCTYPE html>
  <html>
@@ -70,6 +97,17 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script>
+    function confirm_delete(){
+        var deleteFlag;
+        deleteFlag = return confirm('정말 삭제하시겠습니까?');
+
+        if(deleteFlag){
+
+        }
+    }
+    </script>
+
   </head>
   <body>
     <?php
@@ -81,6 +119,11 @@
         <div class="container">
             <form class="form-signin" method="post" id="register-form">
             <h2 class="form-signin-heading"></h2><hr />
+            <?php
+            if (isset($msg)) {
+                echo $msg;
+            }
+            ?>
 
             <div class="form-group">
             <label for="email">이메일</label>
@@ -105,29 +148,27 @@
                 <span class="glyphicon glyphicon-log-in"></span> &nbsp; 확인
                 </button>
 
-                <button type="submit" class="btn btn-default" style="float:right" name="btn-remove" onclick="loginToastFunction()">
+                <button type="submit" class="btn btn-default" style="float:right" name="btn-remove" onclick="return confirm_delete();">
                 <span class="glyphicon glyphicon-remove"></span> &nbsp; 회원탈퇴
                 </button>
+
+
 
             </div>
         </fieldset>
           </form>
 
         </div>
-
     </div>
 
+    <button type="submit" class="btn btn-default" name="btn-test" onclick="return confirm_delete();">
+    <span class="glyphicon glyphicon-remove"></span> &nbsp; 테스트버튼
+    </button>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="stylesheet/bootstrap/js/bootstrap.min.js"></script>
-    <script>
-      function loginToastFunction();
-      {
-          var x = document.getElmentById("snackbar")
-          x.className = "show";
-          setTimeout(function(){x.className = x.className.replace("show", "");}, 3000);
-      }
-    </script>
+
+
   </body>
 </html>
