@@ -7,25 +7,31 @@
 <head>
   <title>leemy.me - 포트폴리오 페이지</title>
   <meta charset="utf-8">
-  <link rel="stylesheet" href=/stylesheet/style.css>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
   <?php
     include ("header.php");
   ?>
-
+ <div class="container">
   <div class="w3-twothird w3-panel w3-padding-48">
       <div class="w3-container w3-card-2 w3-white">
         <div class="w3-display-container ">
+                <br>
   <img src="/images/my.jpg" style="width:20%" alt="Avatar">
   <div class="w3-display-bottomleft w3-container w3-text-black">
-
   </div>
 </div>
+    <br>
 <p><i class="fa fa-address-book-o fa-fw w3-margin-right w3-large w3-text-teal"></i>이민영</p>
 <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>개발자 지망생</p>
  <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>경기도 안산시</p>
@@ -49,6 +55,7 @@
 
     <!-- End Right Column -->
     </div>
+</div>
 </body>
 
 </html>
