@@ -21,7 +21,7 @@
 if(isset($bNo)) {
 	//수정 할 글의 비밀번호가 입력된 비밀번호와 맞는지 체크
 	$sql = 'select count(b_password) as cnt from board_free where b_password=password("' . $bPassword . '") and b_no = ' . $bNo;
-	$result = $DBcon->query($sql);
+	$result = $db->query($sql);
 	$row = $result->fetch_assoc();
 
 	//비밀번호가 맞다면 업데이트 쿼리 작성
@@ -48,13 +48,13 @@ if(isset($bNo)) {
 
 //메시지가 없다면 (오류가 없다면)
 if(empty($msg)) {
-	$result = $DBcon->query($sql);
+	$result = $db->query($sql);
 
 	//쿼리가 정상 실행 됐다면,
 	if($result) {
 		$msg = '정상적으로 글이 ' . $msgState . '되었습니다.';
 		if(empty($bNo)) {
-			$bNo = $DBcon->insert_id;
+			$bNo = $db->insert_id;
 		}
 		$replaceURL = './view.php?bno=' . $bNo;
 	} else {

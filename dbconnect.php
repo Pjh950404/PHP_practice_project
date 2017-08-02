@@ -4,9 +4,9 @@ $DBuser="root";
 $DBpass="dkgodgod1";
 $DBname="users";
 
-$DBcon = new MySQLi($DBhost,$DBuser,$DBpass,$DBname);
+$db = new MySQLi($DBhost,$DBuser,$DBpass,$DBname);
 
-if($DBcon->connect_errno){
-  die("ERROR: -> ".$DBcon->connect_error);
+if($db->connect_errno){
+  die("ERROR: -> ".$db->connect_error);
 }
 ?>

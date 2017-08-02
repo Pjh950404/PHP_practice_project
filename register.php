@@ -7,20 +7,20 @@
      $email = strip_tags($_POST['email']);
      $upass = strip_tags($_POST['password']);
 
-     $uname = $DBcon->real_escape_string($uname);
-     $email = $DBcon->real_escape_string($email);
-     $upass = $DBcon->real_escape_string($upass);
+     $uname = $db->real_escape_string($uname);
+     $email = $db->real_escape_string($email);
+     $upass = $db->real_escape_string($upass);
 
      $hashed_password = password_hash($upass, PASSWORD_DEFAULT); // this function works only in PHP 5.5 or latest version
 
-     $check_email = $DBcon->query("SELECT email FROM tbl_users WHERE email='$email'");
+     $check_email = $db->query("SELECT email FROM tbl_users WHERE email='$email'");
      $count=$check_email->num_rows;
 
      if ($count==0) {
 
       $query = "INSERT INTO tbl_users(username,email,password) VALUES('$uname','$email','$hashed_password')";
 
-      if ($DBcon->query($query)) {
+      if ($db->query($query)) {
        $msg = "<div class='alert alert-success'>
           <span class='glyphicon glyphicon-info-sign'></span> &nbsp; 회원가입이 성공적으로 되었습니다. 잠시후 홈화면으로 이동됩니다.
          </div>";
@@ -40,7 +40,7 @@
         </div>";
      }
 
-     $DBcon->close();
+     $db->close();
     }
     ?>
  <!DOCTYPE html>
@@ -72,12 +72,10 @@
     <?php
       include("header.php");
     ?>
-        <fieldset>
-            <legend>회원가입</legend>
     <div class="signin-form">
         <div class="container">
             <form class="form-signin" method="post" id="register-form">
-            <h2 class="form-signin-heading"></h2><hr />
+            <h2 class="form-signin-heading">회원가입</h2><hr/>
             <?php
                 if (isset($msg)) {
                     echo $msg;
@@ -108,12 +106,12 @@
                 </button>
                 <a href="index.php" class="btn btn-default" style="float:right;">홈화면으로</a>
             </div>
-        </fieldset>
           </form>
-
         </div>
-
     </div>
+    <?php
+        include 'footer.php';
+     ?>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

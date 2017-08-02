@@ -12,10 +12,10 @@ if (isset($_POST['btn-login'])) {
     $email = strip_tags($_POST['email']);
     $password = strip_tags($_POST['password']);
 
-    $email = $DBcon->real_escape_string($email);
-    $password = $DBcon->real_escape_string($password);
+    $email = $db->real_escape_string($email);
+    $password = $db->real_escape_string($password);
 
-    $query = $DBcon->query("SELECT user_id, username, email, password FROM tbl_users WHERE email='$email'");
+    $query = $db->query("SELECT user_id, username, email, password FROM tbl_users WHERE email='$email'");
     $row=$query->fetch_array();
 
     $count = $query->num_rows; // if email/password are correct returns must be 1 row
@@ -30,7 +30,7 @@ if (isset($_POST['btn-login'])) {
      <span class='glyphicon glyphicon-info-sign'></span> &nbsp; 이메일 또는 비밀번호가 틀립니다.
     </div>";
  }
-    $DBcon->close();
+    $db->close();
 }
 ?>
 <!DOCTYPE html>
@@ -73,11 +73,13 @@ if (isset($_POST['btn-login'])) {
     }
     ?>
           <div class="form-group">
+          <label for="username">이메일</label>
           <input type="email" class="form-control" placeholder="Email address" name="email" required />
           <span id="check-e"></span>
           </div>
 
           <div class="form-group">
+          <label for="username">패스워드</label>
           <input type="password" class="form-control" placeholder="Password" name="password" required />
           </div>
 
@@ -92,6 +94,10 @@ if (isset($_POST['btn-login'])) {
         </form>
       </div>
   </div>
+
+  <?php
+    include("footer.php");
+  ?>
 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
