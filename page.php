@@ -53,9 +53,13 @@
         </div>
       </div>
 
-    <!-- End Right Column -->
+
     </div>
 </div>
+
+<?php
+    include 'footer.php';
+ ?>
 </body>
 
 </html>

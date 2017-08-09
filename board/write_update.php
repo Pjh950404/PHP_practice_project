@@ -1,4 +1,5 @@
 <?php
+	session_start();
 	require_once("../dbconnect.php");
 
 	//$_POST['bno']이 있을 때만 $bno 선언
@@ -30,7 +31,7 @@ if(isset($bNo)) {
 		$msgState = '수정';
 	//틀리다면 메시지 출력 후 이전화면으로
 	} else {
-		$msg = '비밀번호가 맞지 않습니다.';
+		$msg = '올바른 접근이 아닙니다.';
 	?>
 		<script>
 			alert("<?php echo $msg?>");

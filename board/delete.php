@@ -1,5 +1,6 @@
 <?php
-	require_once("../dbconfig.php");
+	session_start();
+	require_once("../dbconnect.php");
 
 	//$_GET['bno']이 있어야만 글삭제가 가능함.
 	if(isset($_GET['bno'])) {
@@ -31,7 +32,7 @@
 		<?php
 			exit;
 				}
-				
+
 				$sql = 'select b_title from board_free where b_no = ' . $bNo;
 				$result = $db->query($sql);
 				$row = $result->fetch_assoc();
@@ -53,7 +54,7 @@
 						</tr>
 						<tr>
 							<th scope="row"><label for="bPassword">비밀번호</label></th>
-							<td><input type="password" name="bPassword" id="bPassword"></td>
+							<td><input type="password" name="bPassword" id="bPassword" placeholder="현재 계정의 비밀번호를 입력하세요."></td>
 						</tr>
 					</tbody>
 				</table>

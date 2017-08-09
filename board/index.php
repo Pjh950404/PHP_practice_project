@@ -1,6 +1,15 @@
 <?php
+	session_start();
 	require_once("../dbconnect.php");
 
+	if (!isset($_SESSION['userSession'])) {
+?>
+		<script>
+			alert('로그인 후 사용해주세요.');
+			location.replace('../login.php');
+		</script>
+<?php
+	}
 	$subString = null;
 	$searchColumn = null;
 
@@ -69,11 +78,11 @@
 		$prevPage = (($currentSection - 1) * $oneSection); //이전 페이지, 11~20일 때 이전을 누르면 10 페이지로 이동.
 		$nextPage = (($currentSection + 1) * $oneSection) - ($oneSection - 1); //다음 페이지, 11~20일 때 다음을 누르면 21 페이지로 이동.
 
-		$paging = '<ul>'; // 페이징을 저장할 변수
+		$paging = '<div class="text-center"> <ul class="pagination">'; // 페이징을 저장할 변수
 
 		//첫 페이지가 아니라면 처음 버튼을 생성
 		if($page != 1) {
-			$paging .= '<li class="page page_start"><a href="./index.php?page=1' . $subString . '">처음</a></li>';
+			$paging .= '<li class="page page_start"><a href="./index.php?page=1' . $subString . '">&laquo;</a></li>';
 		}
 		//첫 섹션이 아니라면 이전 버튼을 생성
 		if($currentSection != 1) {
@@ -82,7 +91,7 @@
 
 		for($i = $firstPage; $i <= $lastPage; $i++) {
 			if($i == $page) {
-				$paging .= '<li class="page current">' . $i . '</li>';
+				//$paging .= '<li class="page current">' ."현재 페이지 : ". $i . '</li>';
 			} else {
 				$paging .= '<li class="page"><a href="./index.php?page=' . $i . $subString . '">' . $i . '</a></li>';
 			}
@@ -95,9 +104,9 @@
 
 		//마지막 페이지가 아니라면 끝 버튼을 생성
 		if($page != $allPage) {
-			$paging .= '<li class="page page_end"><a href="./index.php?page=' . $allPage . $subString . '">끝</a></li>';
+			$paging .= '<li class="page page_end"><a href="./index.php?page=' . $allPage . $subString . '">&raquo;</a></li>';
 		}
-		$paging .= '</ul>';
+		$paging .= '</div></ul>';
 
 		/* 페이징 끝 */
 
@@ -113,26 +122,26 @@
 <html>
 <head>
 	<meta charset="utf-8" />
-	<title>자유게시판 | Kurien's Library</title>
-	<link rel="stylesheet" href="/stylesheet/normalize.css" />
-	<link rel="stylesheet" href="/stylesheet/board.css" />
+	<title>Leemy.me - 게시판</title>
+
+	<style>
+
+	</style>
+
 </head>
 <body>
 	<?php
       include ("../header.php");
     ?>
-	<article class="boardArticle">
-		<h3>자유게시판</h3>
-		<div id="boardList">
-			<table>
-				<caption class="readHide">자유게시판</caption>
+		<div class="container">
+			<table class="table table-striped table-hover table-bordered"><h3>자유게시판</h3></caption>
 				<thead>
 					<tr>
-						<th scope="col" class="no">번호</th>
-						<th scope="col" class="title">제목</th>
-						<th scope="col" class="author">작성자</th>
-						<th scope="col" class="date">작성일</th>
-						<th scope="col" class="hit">조회</th>
+						<th class="text-center col-xs-1">번호</th>
+						<th class="text-center col-xs-6">제목</th>
+						<th class="text-center col-xs-2">작성자</th>
+						<th class="text-center col-xs-2">작성일</th>
+						<th class="text-center col-xs-1">조회</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -151,13 +160,15 @@
 									$row['b_date'] = $date;
 						?>
 						<tr>
-							<td class="no"><?php echo $row['b_no']?></td>
-							<td class="title">
+							<td class="text-center">
+								<a href="./view.php?bno=<?php echo $row['b_no']?>"><?php echo $row['b_no']?></a>
+							</td>
+							<td class="text-left">
 								<a href="./view.php?bno=<?php echo $row['b_no']?>"><?php echo $row['b_title']?></a>
 							</td>
-							<td class="author"><?php echo $row['b_id']?></td>
-							<td class="date"><?php echo $row['b_date']?></td>
-							<td class="hit"><?php echo $row['b_hit']?></td>
+							<td class="text-left"><?php echo $row['b_id']?></td>
+							<td class="text-center"><?php echo $row['b_date']?></td>
+							<td class="text-center"><?php echo $row['b_hit']?></td>
 						</tr>
 						<?php
 							}
@@ -166,24 +177,37 @@
 				</tbody>
 			</table>
 			<div class="btnSet">
-				<a href="./write.php" class="btnWrite btn">글쓰기</a>
+				<a href="./write.php" class="btn btn-default pull-right">글쓰기</a>
 			</div>
 			<div class="paging">
-				<?php echo $paging ?>
+				<?php
+				if(!empty($allPost))
+					echo $paging;
+				?>
 			</div>
-			<div class="searchBox">
+				<div class="container">
 				<form action="./index.php" method="get">
-					<select name="searchColumn">
+					<div class="col-lg-2 col-lg-offset-2 ">
+					<select name="searchColumn" class="form-control">
 						<option <?php echo $searchColumn=='b_title'?'selected="selected"':null?> value="b_title">제목</option>
 						<option <?php echo $searchColumn=='b_content'?'selected="selected"':null?> value="b_content">내용</option>
 						<option <?php echo $searchColumn=='b_id'?'selected="selected"':null?> value="b_id">작성자</option>
 					</select>
-					<input type="text" name="searchText" value="<?php echo isset($searchText)?$searchText:null?>">
-					<button type="submit">검색</button>
+					</div>
+					<div class="col-lg-6">
+					<div class="input-group">
+					<input type="text" name="searchText" class="form-control" placeholder="검색어를 입력해주세요." value="<?php echo isset($searchText)?$searchText:null?>">
+					<span class="input-group-btn">
+					<button type="submit" class ="btn btn-secondary">검색!</button>
+				</span>
+			</div>
 				</form>
+				</div>
 			</div>
 		</div>
+	</div>
 	</article>
+	<br>
 	<?php
 	  include ("../footer.php");
 	?>

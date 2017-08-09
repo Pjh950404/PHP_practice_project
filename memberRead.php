@@ -31,7 +31,7 @@
 <th> USER NAME</th>
 </tr>
 <?php
- $res = $DBcon->query("SELECT * FROM tbl_users");
+ $res = $db->query("SELECT * FROM tbl_users");
  $count = $res->num_rows;
 
  if($count > 0)

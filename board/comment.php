@@ -2,19 +2,22 @@
 	$sql = 'select * from comment_free where co_no=co_order and b_no=' . $bNo;
 	$result = $db->query($sql);
 ?>
-<div id="commentView">
+<div id="commentView" class="comments-container">
 	<form action="comment_update.php" method="post">
 		<input type="hidden" name="bno" value="<?php echo $bNo?>">
 		<?php
 			while($row = $result->fetch_assoc() ) {
 		?>
-		<ul class="oneDepth">
+		<ul id="oneDepth" class="comments-list">
 			<li>
-				<div id="co_<?php echo $row['co_no']?>" class="commentSet">
+				<div id="co_<?php echo $row['co_no']?>" class="commentSet comment-main-level">
 					<div class="commentInfo">
-						<div class="commentId">작성자: <span class="coId"><?php echo $row['co_id']?></span></div>
+						<div class="commentId comment-avatar"><img src="http://plugins.krajee.com/uploads/default_avatar_male.jpg" alt=""></div>
+						<div class="comment-box">
+							<div class="comment-head">
+							<h6 class="comment-name by-author"><span class="coId"><?php echo $row['co_id']?></span></h6>
 						<div class="commentBtn">
-							<a href="#" class="comt write">댓글</a>
+							<a href="#" class="comt write ">댓글</a>
 							<a href="#" class="comt modify">수정</a>
 							<a href="#" class="comt delete">삭제</a>
 						</div>
@@ -27,14 +30,17 @@
 
 					while($row2 = $result2->fetch_assoc()) {
 				?>
-				<ul class="twoDepth">
+				<ul id="twoDepth" class="comments-list reply-list">
 					<li>
 						<div id="co_<?php echo $row2['co_no']?>" class="commentSet">
 							<div class="commentInfo">
-								<div class="commentId">작성자:  <span class="coId"><?php echo $row2['co_id']?></span></div>
+								<div class="comment-avatar"><img src="http://plugins.krajee.com/uploads/default_avatar_male.jpg" alt=""></div>
+								<div class="comment-box">
+									<div class="comment-head">
+									<h6 class="comment-name by-author"><?php echo $row2['co_id']?></h6>
 								<div class="commentBtn">
-									<a href="#" class="comt modify">수정</a>
-									<a href="#" class="comt delete">삭제</a>
+									<a href="" class="comt modify">수정</a>
+									<a href="" class="comt delete">삭제</a>
 								</div>
 							</div>
 							<div class="commentContent"><?php echo $row2['co_content'] ?></div>
@@ -49,6 +55,7 @@
 		<?php } ?>
 	</form>
 </div>
+<br>
 <form action="comment_update.php" method="post">
 	<input type="hidden" name="bno" value="<?php echo $bNo?>">
 	<table>

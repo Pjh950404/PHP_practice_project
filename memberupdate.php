@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require_once 'dbconnect.php';
+    require_once 'dbnect.php';
     $Message = '로그인을 다시 해주시기바랍니다.';
     $alert_script;
 
@@ -13,9 +13,9 @@
      $email = strip_tags($_POST['email']);
      $upass = strip_tags($_POST['password']);
 
-     $uname = $DBcon->real_escape_string($uname);
-     $email = $DBcon->real_escape_string($email);
-     $upass = $DBcon->real_escape_string($upass);
+     $uname = $db->real_escape_string($uname);
+     $email = $db->real_escape_string($email);
+     $upass = $db->real_escape_string($upass);
 
      $hashed_password = password_hash($upass, PASSWORD_DEFAULT); // this function works only in PHP 5.5 or latest version
 
@@ -24,14 +24,14 @@
      {
         $s_user_id = $_SESSION['userSession'];
         $query = "UPDATE tbl_users SET username='$uname', password='$hashed_password' WHERE user_id='$s_user_id'";
-        mysqli_query($DBcon, $query);
+        mysqli_query($db, $query);
 
-        $sessionUpdate = $DBcon->query("SELECT user_id, username, email, password FROM tbl_users WHERE user_id='$s_user_id'");
+        $sessionUpdate = $db->query("SELECT user_id, username, email, password FROM tbl_users WHERE user_id='$s_user_id'");
         $row=$sessionUpdate->fetch_array();
 
         $_SESSION['userSession_name'] = $row['username'];
 
-        $DBcon->close();
+        $db->close();
         header("Location: index.php");
      }
     }
@@ -52,8 +52,8 @@
         {
 
             $query = "DELETE FROM tbl_users WHERE user_id='$removeSessionId'";
-            mysqli_query($DBcon, $query);
-            $DBcon->close();
+            mysqli_query($db, $query);
+            $db->close();
 
             session_unset();
             unset($_SESSION['userSession']);
