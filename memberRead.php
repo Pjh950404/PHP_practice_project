@@ -1,6 +1,17 @@
 <?php
     session_start();
     include_once 'dbconnect.php';
+    $Message = '로그인을 다시 해주시기바랍니다.';
+    $alert_script;
+
+    if (isset($_SESSION['userSession'])=="") {
+        echo "<script> alert('$Message'); </script>";
+?>
+        <script>
+        location.replace("./index.php");
+        </script>
+<?php
+    }
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

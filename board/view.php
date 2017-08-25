@@ -11,7 +11,7 @@
 		</script>
 <?php
 	}
-	
+
 	if(!empty($bNo) && empty($_COOKIE['board_free_' . $bNo])) {
 		$sql = 'update board_free set b_hit = b_hit + 1 where b_no = ' . $bNo;
 		$result = $db->query($sql);
@@ -38,7 +38,10 @@
 	<meta charset="utf-8" />
 	<title>Leemy.me - 게시판보기</title>
 
-	<link rel="stylesheet" href="/css/comment.css">
+
+	
+	<link rel="stylesheet" href="../css/board.css" />
+	<script src="./js/jquery-2.1.3.min.js"></script>
 </head>
 <body>
 	<?php
@@ -104,14 +107,15 @@
 			}
 		?>
 	</div>
-<div id="boardComment">
+
+	
 	<?php
 		require_once('./comment.php');
 	?>
-</div>
 	</div>
+</div>
 </article>
 <br>
-<?php include '../footer.php' ?>
+	<?php include '../footer.php' ?>
 </body>
 </html>

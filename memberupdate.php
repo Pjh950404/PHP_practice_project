@@ -1,11 +1,16 @@
 <?php
     session_start();
-    require_once 'dbnect.php';
+    require_once 'dbconnect.php';
     $Message = '로그인을 다시 해주시기바랍니다.';
     $alert_script;
 
     if (isset($_SESSION['userSession'])=="") {
         echo "<script> alert('$Message'); </script>";
+?>
+        <script>
+        location.replace("./index.php");
+        </script>
+<?php
     }
 
     if(isset($_POST['btn-signup'])) {
@@ -40,6 +45,7 @@
     {
         $removeSessionId = $_SESSION['userSession'];
 
+        /*
         if($_POST['confirm'] !== 1){
             $alert_script = "<script> alert(\'정말 삭제하시겠습니까?\')</script>";
             $error = true;
@@ -47,7 +53,7 @@
         else{
             $error = false;
         }
-        /*
+        */
         if(isset($_SESSION['userSession']))
         {
 
@@ -58,16 +64,25 @@
             session_unset();
             unset($_SESSION['userSession']);
 
-            $msg = "<div class='alert alert-success'>
-               <span class='glyphicon glyphicon-info-sign'></span> &nbsp; 삭제가 성공적으로 되었습니다.
-              </div>";
+
+            ?>
+            <script>
+    			alert("<?php echo "삭제가 정상적으로 되었습니다."?> ");
+    			location.replace("./index.php");
+    		</script>
+
+            <?php
         }
         else{
-            $msg = "<div class='alert alert-danger'>
-               <span class='glyphicon glyphicon-info-sign'></span> &nbsp; 잘못된 접근입니다.
-              </div>";
+            ?>
+            <script>
+    			alert("<?php echo "잘못된 접근입니다. "?> ");
+    			location.replace("./index.php");
+    		</script>
+
+            <?php
         }
-        */
+
         //header("Location: index.php");
     }
 
@@ -100,16 +115,7 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script>
-    function confirm_delete(){
-        var deleteFlag;
-        deleteFlag = return confirm('정말 삭제하시겠습니까?');
 
-        if(deleteFlag){
-
-        }
-    }
-    </script>
 
   </head>
   <body>
@@ -163,10 +169,6 @@
 
         </div>
     </div>
-
-    <button type="submit" class="btn btn-default" name="btn-test" onclick="return confirm_delete();">
-    <span class="glyphicon glyphicon-remove"></span> &nbsp; 테스트버튼
-    </button>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

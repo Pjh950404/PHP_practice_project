@@ -38,7 +38,7 @@
     <div class="row text-center slideanim">
       <div class="col-sm-4">
         <div class="thumbnail">
-          <img src=/images/show1.jpg alt="show1" width="400" height="300">
+          <!-- <img src=/images/show1.jpg alt="show1" width="400" height="300"> -->
           <br>
           <p><strong>PHP</strong></p>
           <p>My PHP Portfolio</p>
@@ -46,7 +46,7 @@
       </div>
       <div class="col-sm-4">
         <div class="thumbnail">
-          <img src=/images/show2.jpg alt="show2" width="400" height="300">
+          <!--<img src=/images/show2.jpg alt="show2" width="400" height="300"> -->
           <br>
           <p><strong>Android</strong></p>
           <p>My Android Portfolio</p>
@@ -54,7 +54,7 @@
       </div>
       <div class="col-sm-4">
         <div class="thumbnail">
-          <img src=/images/show3.jpg alt="show3" width="400" height="300">
+          <!-- <img src=/images/show3.jpg alt="show3" width="400" height="300"> -->
       </br>
           <p><strong>Java</strong></p>
           <p>My Java Portfolio</p>
