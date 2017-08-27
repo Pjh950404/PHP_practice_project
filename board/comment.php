@@ -5,8 +5,10 @@
 	$query = $db->query("SELECT user_id, username, email, password FROM tbl_users WHERE email='{$_SESSION['userSession_email']}' ");
 	$row = $query->fetch_array();
 	
+	$getPassword= $_SESSION['realPassword'];
 ?>
-<div id="commentView" class="comments-container centered">
+<br>
+<div id="commentView" class="comments-container">
 	<form action="comment_update.php" method="post">
 		<input type="hidden" name="bno" value="<?php echo $bNo?>">
 		<?php
@@ -71,8 +73,9 @@
 		<?php } ?>
 	</form>
 </div>
-
-<div class="comments">
+<br>
+<br>
+<div class="comments" >
 <div class="container">
 	<div class="row">
 		<form action="comment_update.php" method="post">
@@ -89,7 +92,7 @@
 						  		$query = $db->query("SELECT user_id, username, email, password FROM tbl_users WHERE email='{$_SESSION['userSession_email']}' ");
 								$row = $query->fetch_array(); 
 								?>
-                            	<input type="hidden" class="form-control" name="coPassword" autocomplete="off" id="coPassword" value="<?php echo $row['password'] ?> ">
+                            	<input type="hidden" class="form-control" name="coPassword" autocomplete="off" id="coPassword" value="<?php echo $getPassword ?>">
                   			</div>
                   		</div>
                   	</div>
@@ -118,9 +121,6 @@
 		var commentSet = '';
 		var action = '';
 
-
-
-		
 		$('#commentView').delegate('.comt', 'click', function () {
 			//현재 작성 내용을 변수에 넣고, active 클래스 추가.
 			commentSet = $(this).parents('.commentSet').html();
@@ -142,8 +142,8 @@
 		
 			var addOption = '<input type="hidden" name="co_no" value="' + co_no + '">';
 			
-			var getPassword= " <?php echo $row['password']; ?>"
-			var getEmail = "<?php echo $_SESSION['userSession_email']; ?>"
+
+			var getEmail = "<?php echo $_SESSION['userSession_email'];?>"
 
 			//변수 초기화
 			var comment = '';
@@ -170,7 +170,6 @@
 			} else if($(this).hasClass('delete')) {
 				//댓글 삭제	
 				action = 'd';
-				
 			}
 			
 				comment += '<div class="writeComment">';
@@ -194,14 +193,13 @@
 
 				}
 				*/
-				comment += '				<td><input type="hidden" name="coPassword" id="coPassword" value="'+getPassword+'"></td>';
+				comment += '				<td><input type="hidden" name="coPassword" id="coPassword" value="<?php echo ($getPassword); ?>"></td>';
 				
 				if(action !== 'd') {
 					comment += '			<tr>';
 					comment += '				<th scope="row"><label for="coContent">내용</label></th>';
 					comment += '				<td><textarea name="coContent" id="coContent">' + coContent + '</textarea></td>';
 					comment += '			</tr>';
-
 				}
 				comment += '		</tbody>';
 				comment += '	</table>';

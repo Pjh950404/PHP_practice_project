@@ -11,12 +11,25 @@
 <html>
 <head>
 	<meta charset="utf-8" />
-	<title>자유게시판 | Kurien's Library</title>
+	<title>자유게시판 - 삭제 요청</title>
 	<link rel="stylesheet" href="./css/normalize.css" />
 	<link rel="stylesheet" href="./css/board.css" />
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
 <body>
-	<article class="boardArticle">
+	<?php
+		include_once '../header.php';
+	?>
+	<article class="boardArticle" class ="container">
 		<h3>자유게시판 글삭제</h3>
 		<?php
 			if(isset($bNo)) {
@@ -33,11 +46,11 @@
 			exit;
 				}
 
-				$sql = 'select b_title from board_free where b_no = ' . $bNo;
+				$sql = 'select * from board_free where b_no = ' . $bNo;
 				$result = $db->query($sql);
 				$row = $result->fetch_assoc();
 		?>
-		<div id="boardDelete">
+		<div id="boardDelete" class="container">
 			<form action="./delete_update.php" method="post">
 				<input type="hidden" name="bno" value="<?php echo $bNo?>">
 				<table>
@@ -51,6 +64,10 @@
 						<tr>
 							<th scope="row">글 제목</th>
 							<td><?php echo $row['b_title']?></td>
+						</tr>
+						<tr>
+							<th scope="row">글 날짜</th>
+							<td><?php echo $row['b_date']?></td>
 						</tr>
 						<tr>
 							<th scope="row"><label for="bPassword">비밀번호</label></th>

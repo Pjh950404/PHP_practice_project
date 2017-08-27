@@ -15,6 +15,8 @@ if (isset($_POST['btn-login'])) {
     $email = $db->real_escape_string($email);
     $password = $db->real_escape_string($password);
 
+    $_SESSION['realPassword'] = $password;
+
     $query = $db->query("SELECT user_id, username, email, password FROM tbl_users WHERE email='$email'");
     $row=$query->fetch_array();
 
@@ -24,7 +26,9 @@ if (isset($_POST['btn-login'])) {
      $_SESSION['userSession'] = $row['user_id'];
      $_SESSION['userSession_name'] = $row['username'];
      $_SESSION['userSession_email'] = $row['email'];
+
      header("Location: index.php");
+
  } else {
      $msg = "<div class='alert alert-danger'>
      <span class='glyphicon glyphicon-info-sign'></span> &nbsp; 이메일 또는 비밀번호가 틀립니다.
@@ -39,7 +43,7 @@ if (isset($_POST['btn-login'])) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="/stylesheet/style.css">
+    
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>leemy - 로그인 화면</title>
 
@@ -59,22 +63,27 @@ if (isset($_POST['btn-login'])) {
     }
     ?>
           <div class="form-group">
-          <label for="username">이메일</label>
-          <input type="email" class="form-control" placeholder="Email address" name="email" required />
-          <span id="check-e"></span>
-          </div>
-
-          <div class="form-group">
+          <label for="email">이메일</label> 
+          <input type="email" class="form-control" placeholder="Email address" id="email" name="email" required />
+          
+         <br>
+          
           <label for="username">패스워드</label>
           <input type="password" class="form-control" placeholder="Password" name="password" required />
+
+        
+        <!--
+          <label for="checkbox" class="checkbox"></label>
+          <input type="checkbox" value="remember-me"> 로그인정보저장
+        -->
+
           </div>
 
         <hr />
-
+        
           <div class="form-group">
               <button type="submit" class="btn btn-default" name="btn-login" id="btn-login">
-        <span class="glyphicon glyphicon-log-in"></span> &nbsp; 로그인
-     </button>
+                <span class="glyphicon glyphicon-log-in"></span> &nbsp; 로그인 </button>
               <a href="register.php" class="btn btn-default" style="float:right;">회원가입</a>
           </div>
         </form>
@@ -84,14 +93,16 @@ if (isset($_POST['btn-login'])) {
   <?php
     include("footer.php");
   ?>
+<script>
 
-  <script>
     function loginToastFunction()
     {
         var x = document.getElmentById("snackbar")
         x.className = "show";
         setTimeout(function(){x.className = x.className.replace("show", "");}, 3000);
     }
+
   </script>
+
   </body>
   </html>

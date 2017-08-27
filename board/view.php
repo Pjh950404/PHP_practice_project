@@ -38,10 +38,8 @@
 	<meta charset="utf-8" />
 	<title>Leemy.me - 게시판보기</title>
 
-
-	
 	<link rel="stylesheet" href="../css/board.css" />
-	<script src="./js/jquery-2.1.3.min.js"></script>
+	
 </head>
 <body>
 	<?php
@@ -49,7 +47,7 @@
 	?>
 
 
-	<article class="boardArticle">
+	<article class="boardArticle container">
 		<h3>자유게시판</h3>
 	<div class="container">
 	<div class="col-lg-12" id="Comments">

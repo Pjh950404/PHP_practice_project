@@ -2,7 +2,7 @@
     session_start();
     include_once 'dbconnect.php';
 ?>
-<?xml version="1.0"?><!DOCTYPE html>
+
 <head>
   <title>  leemy.me -
     <?php
@@ -12,9 +12,11 @@
 
     else{
         echo $_SESSION['userSession_name'];
+        
     }
 
     ?>님 반갑습니다. </title>
+    
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, inital-scale=1">
 

@@ -14,6 +14,10 @@
 	$bNo = $_POST['bno'];
 	$coPassword = $_POST['coPassword'];
 
+	$Test = $coPassword;
+	
+	
+
 	if($w !== 'd') {//$w 변수가 d일 경우 $coContent와 $coId가 필요 없음.
 		$coContent = $_POST['coContent'];
 		if($w !== 'u') {//$w 변수가 u일 경우 $coId가 필요 없음.
@@ -23,7 +27,7 @@
 
 	if(empty($w) || $w === 'w') { //$w 변수가 비어있거나 w인 경우
 		$msg = '작성';
-		$sql = 'insert into comment_free values(null, ' .$bNo . ', ' . $coNo . ', "' . $coContent . '", "' . $coId . '", password("' . $coPassword . '"))';
+		$sql = 'insert into comment_free values(null, ' .$bNo . ', ' . $coNo . ', "' . $coContent . '", "' . $coId . '", password("'.$coPassword.'"))';
 
 
 		if(empty($w)) { //$w 변수가 비어있다면,
@@ -36,11 +40,12 @@
 	} else if($w === 'u') { //작성
 		$msg = '수정';
 
-		$sql = 'select count(*) as cnt from comment_free where co_password=password("' . $coPassword . '") and co_no = ' . $coNo;
+		$sql = 'select count(*) as cnt from comment_free where co_password = password("'.$coPassword.'") and co_no = ' . $coNo;
 		$result = $db->query($sql);
 		$row = $result->fetch_assoc();
 
 		if(empty($row['cnt'])) { //맞는 결과가 없을 경우 종료
+		
 ?>
 			<script>
 				alert('비밀번호가 맞지 않습니다.');
