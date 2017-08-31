@@ -2,14 +2,7 @@
 	session_start();
 	require_once("../dbconnect.php");
 
-	if (!isset($_SESSION['userSession'])) {
-?>
-		<script>
-			alert('로그인 후 사용해주세요.');
-			location.replace('../login.php');
-		</script>
-<?php
-	}
+
 	$subString = null;
 	$searchColumn = null;
 

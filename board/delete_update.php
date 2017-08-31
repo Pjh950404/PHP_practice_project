@@ -23,6 +23,7 @@ if(isset($bNo)) {
 	//비밀번호가 맞다면 삭제 쿼리 작성
 	if (password_verify($bPassword, $row2['password'])) {
 		$sql = 'delete from board_free where b_no = ' . $bNo;
+		$sql2 = 'delete from tbl_files where BOARD_NO = '. $bNo;
 	} else {
 		$msg = '비밀번호가 맞지 않습니다.';
 		?>
@@ -44,6 +45,9 @@ if(isset($bNo)) {
 }
 
 	$result = $db->query($sql);
+	$result2 = $db ->query($sql2);
+
+	echo $result2;
 
 //쿼리가 정상 실행 됐다면,
 if($result) {

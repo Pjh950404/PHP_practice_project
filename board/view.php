@@ -3,6 +3,18 @@
 	require_once("../dbconnect.php");
 	$bNo = $_GET['bno'];
 
+	$sql = 'select b_title, b_content, b_date, b_hit, b_id from board_free where b_no = ' . $bNo;
+	$result = $db->query($sql);
+	$row = $result->fetch_assoc();
+
+	$fileSQL = 'select FILE_ID, FILE_PATH, FILE_NAME, BOARD_NO from tbl_files where BOARD_NO = '. $bNo;
+	$fileDBResult = $db->query($fileSQL);
+	$fileDBRow = $fileDBResult->fetch_assoc();
+
+	$getFilePath = $fileDBRow['FILE_PATH'];
+	$getFileName = $fileDBRow['FILE_NAME'];
+
+
 	if (!isset($_SESSION['userSession'])) {
 ?>
 		<script>
@@ -27,9 +39,50 @@
 		}
 	}
 
-	$sql = 'select b_title, b_content, b_date, b_hit, b_id from board_free where b_no = ' . $bNo;
-	$result = $db->query($sql);
-	$row = $result->fetch_assoc();
+	if(isset($_GET['download'])){
+
+	ignore_user_abort(true);
+	set_time_limit(0); 
+
+	$fileSQL = 'select FILE_ID, FILE_PATH, FILE_NAME, BOARD_NO from tbl_files where BOARD_NO = '. $bNo;
+	$fileDBResult = $db->query($fileSQL);
+	$fileDBRow = $fileDBResult->fetch_assoc();
+
+	$getFilePath = $fileDBRow['FILE_PATH'];
+	$getFileName = $fileDBRow['FILE_NAME'];
+
+	ignore_user_abort(true);
+	set_time_limit(0); // disable the time limit for this script
+	 
+	$path = "../uploads/"; // change the path to fit your websites document structure
+	$dl_file = preg_replace("([^\w\s\d\-_~,;:\[\]\(\).]|[\.]{2,})", '', $getFileName); // simple file name validation
+	$dl_file = filter_var($dl_file, FILTER_SANITIZE_URL); // Remove (more) invalid characters
+	$fullPath = $path.$dl_file;
+	 
+	if ($fd = fopen ($fullPath, "r")) {
+		$fsize = filesize($fullPath);
+		$path_parts = pathinfo($fullPath);
+		$ext = strtolower($path_parts["extension"]);
+		switch ($ext) {
+			case "pdf":
+			header("Content-type: application/pdf");
+			header("Content-Disposition: attachment; filename=\"".$path_parts["basename"]."\""); // use 'attachment' to force a file download
+			break;
+			// add more headers for other content types here
+			default;
+			header("Content-type: application/octet-stream");
+			header("Content-Disposition: filename=\"".$path_parts["basename"]."\"");
+			break;
+		}
+		header("Content-length: $fsize");
+		header("Cache-control: private"); //use this to open files directly
+		while(!feof($fd)) {
+			$buffer = fread($fd, 2048);
+			echo $buffer;
+		}
+	}
+	fclose ($fd);
+}
 
 ?>
 <!DOCTYPE html>
@@ -86,8 +139,15 @@
 					<textarea style="height:500px; width: 800px" readonly><?php echo $row['b_content']; ?></textarea>
 				</div>
 			</div>
+			
+			<?php
+				if(!empty($fileDBRow)){
+			?>
+				<a href = "<?php echo $fileDBRow['FILE_PATH']; ?>" download> <div id="test"><?php echo "첨부된 파일 : " . $fileDBRow['FILE_NAME']; ?></div></a>
+			<?php
+				}
+			?>
 		</div>
-	</div>
 	<div class="text-center">
 		<?php
 			if($row['b_id'] == $_SESSION['userSession_email']){
@@ -115,5 +175,7 @@
 </article>
 <br>
 	<?php include '../footer.php' ?>
+
+
 </body>
 </html>

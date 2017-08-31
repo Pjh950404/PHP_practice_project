@@ -27,7 +27,7 @@
       <div class="w3-container w3-card-2 w3-white">
         <div class="w3-display-container ">
                 <br>
-  <img src="/images/my.jpg" style="width:20%" alt="Avatar">
+  <img src="/images/13446464.jpg" style="width:20%" alt="Avatar">
   <div class="w3-display-bottomleft w3-container w3-text-black">
   </div>
 </div>

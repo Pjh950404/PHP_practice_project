@@ -20,21 +20,4 @@ if(filter_var($emailCheck, FILTER_VALIDATE_EMAIL)){
 else{
     echo('Regular');
 }
-
-
-/*
-if($row['email'] == FALSE){
-    echo('NOk');
-}
-
-else{
-    if(!filter_var($row['email'], FILTER_VALIDATE_EMAIL) ){
-        echo('Regular');
-    }
-    else{
-        echo('Ok');
-    }
-}
-*/
-//echo filter_var($row['email'], FILTER_SANITIZE_EMAIL);
 ?>

@@ -1,5 +1,7 @@
 <?php
     include_once 'dbconnect.php';
+
+    include_once("analyticstracking.php");
  ?>
 <!DOCTYPE html>
 <head>
@@ -16,6 +18,7 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+    
     <!-- W3 CSS -->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
@@ -36,10 +39,9 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="/index.php">Home</a></li>
             <li><a href="/page.php">학력사항</a></li>
             <li><a href="/board/index.php">자유게시판</a></li>
-            <li><a href="/contact.php">연락처</a></li>
+            <li><a href="/portfolio.php">포트폴리오</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
              <?php
@@ -58,5 +60,7 @@
         </div>
       </div>
     </nav>
+
+
 </body>
 </html>

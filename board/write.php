@@ -21,13 +21,16 @@
 		$sql = 'select b_title, b_content, b_id from board_free where b_no = ' . $bNo;
 		$result = $db->query($sql);
 		$row = $result->fetch_assoc();
+
+		$fileSql = 'select * from tbl_files where BOARD_NO = '. $bNo;
+		$fileResult = $db->query($fileSql);
+		
+
+		$fileRow = $fileResult->fetch_assoc();
 	}
 
 	$query = $db->query("SELECT user_id, username, email, password FROM tbl_users WHERE email='{$_SESSION['userSession_email']}' ");
 	$row2=$query->fetch_array();
-	//password_verify($password, $row['password']
-
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -42,7 +45,7 @@
 	<article class="text-center">
 		<h3>자유게시판 글쓰기</h3>
 		<div id="boardWrite">
-			<form action="./write_update.php" method="post">
+			<form action="./write_update.php" method="post" enctype="multipart/form-data">
 				<?php
 				if(isset($bNo)) {
 					echo '<input type="hidden" name="bno" value="' . $bNo . '">';
@@ -52,14 +55,14 @@
         <div class="col-lg-12" id="Comments">
             <div class="form-horizontal" style="padding-top: 25px;">
                 <div class="form-group">
-                    <label for="bId" class="col-sm-2 control-label">아이디</label>
+                    <!-- <label for="bId" class="col-sm-2 control-label">아이디</label> -->
                     <div class="col-sm-10">
 						<?php
 
 						  	if(isset($bNo)){
-								echo $row['b_id'];
+								//echo $row['b_id'];
 							} else { ?>
-                        		<input type="text" class="form-control" name="bID" id="bID"  value="<?php echo $_SESSION['userSession_email']; ?>"placeholder="Enter Id.." readonly>
+                        		<input type="hidden" class="form-control" name="bID" id="bID"  value="<?php echo $_SESSION['userSession_email']; ?>"placeholder="Enter Id.." readonly>
 						<?php } ?>
                     </div>
                 </div>
@@ -87,14 +90,40 @@
             </div>
         </div>
 		</div>
-				<div class="btnSet">
-					<button type="submit" class="btn btn-primary">
-						<?php echo isset($bNo)?'수정':'작성'?>
-					</button>
-					<a href="./index.php" class="btn btn-danger">목록</a>
-				</div>
-			</form>
+		
+		<div class="container">
+
+		<?php
+		if(!isset($bNo))
+		{
+		?>
+			<div class="container">
+				<input type="file" name="fileToUpload" id="fileToUpload">
+			</div>
+		<?php
+		}
+
+		else 
+		{
+			?>
+			<div class="container">
+				<input type="file" name="fileToUpload" id="fileToUpload">
+				<a href = "<?php echo $fileRow['FILE_PATH']; ?>" > <?php echo "첨부된 파일 : " . $fileRow['FILE_NAME'];?> </a>
+			</div>
+		<?php
+		}
+		
+		?>
 		</div>
+								
+			<div class="btnSet">
+				<button type="submit" class="btn btn-primary">
+					<?php echo isset($bNo)?'수정':'작성'?>
+				</button>
+				<a href="./index.php" class="btn btn-danger">목록</a>
+			</div>
+		</form>
+	</div>
 	</article>
 	<br>
 	<?php
